@@ -2,19 +2,22 @@
 
 int main()
 {
-    int inputNumber;
-    std::cout << "숫자를 입력하세요 : ";
-    std::cin >> inputNumber;
+    const int USDTOWON = 1090;
+    const float YENTOWON = 9.7f;
+    int money{};
+    char kind;
 
-    int absoluteNumber;
-    if (inputNumber < 0)
-    {
-        absoluteNumber = -inputNumber;
-    }
-    else
-    {
-        absoluteNumber = inputNumber;
-    }
+    std::cout << "달려(s)화 혹은 엔(y)화를 입력하세요 : ";
+    std::cin >> money >> kind;
 
-    std::cout << "절대값 = " << absoluteNumber;
+    if (kind == 's')
+    {
+        std::cout << money << "USD는 ";
+        std::cout << money * USDTOWON << "원 입니다.";
+    }
+    else if (kind=='y')
+    {
+        std::cout << money << "JPY는 ";
+        std::cout << money * YENTOWON << "원 입니다.";
+    }
 }
