@@ -1,114 +1,67 @@
 ﻿#include <iostream>
+#include <iomanip>
 
-/*
-1. 10명의 학생들의 점수를 입력 받아 평균을 구하세요.
-ex) 입력값 10,40,30,50,60,70,100,20,80,90
-출력값
-최고점 : 100
-최저점 : 10
-
-2. 10명의 학생들의 점수를 입력 받아 각각의 등수를 출력하세요.
-ex) 입력값 10,40,30,50,60,70,100,20,80,90
-	출력값 10, 7, 8, 6, 5, 4, 1, 9, 3, 2
-
-
-*/
 
 int main()
 {
-	// 1번 문제
-	
-	int Scores1[10]{};
-	for (int i = 0; i < 10; ++i)
+	/*
+	struct Student
 	{
-		std::cout << "score [" << i + 1 << "] : ";
-		std::cin >> Scores1[i];
-	}
-	int total{  };
-	for (int i = 0; i < 10; ++i)
-	{
-		total += Scores1[i];
-	}
-	std::cout << "평균 : " << total / 10;
-	std::cout << "\n\n";
-	
+		char name[10];
+		int number;
+		int score;
+	};
 
-	// 2번 문제
-	
-	int Scores2[10]{};
-	for (int i = 0; i < 10; ++i)
-	{
-		std::cout << "score [" << i + 1 << "] : ";
-		std::cin >> Scores2[i];
-	}
+	Student tom;
 
-	int high{0}, low{100};
-	for (int i = 0; i < 10; ++i)
-	{
-		if (high < Scores2[i])
-		{
-			high = Scores2[i];
-		}
-		if (low > Scores2[i])
-		{
-			low = Scores2[i];
-		}
-	}
-	std::cout << "최고점 : " << high << std::endl;
-	std::cout << "최저점 : " << low << std::endl;
-	
+	std::cout << "input name, number, score : ";
+	std::cin >> tom.name >> tom.number >> tom.score;
 
-	// 3번 문제
-	
-	int Scores3[10]{};
-	for (int i = 0; i < 10; ++i)
-	{
-		std::cout << "score [" << i + 1 << "] : ";
-		std::cin >> Scores3[i];
-	}
-	int rank[10]{};
-	for (int i = 0; i < 10; ++i)
-	{
-		for (int j = 0; j < 10; ++j)
-		{
-			if (Scores3[i] < Scores3[j])
-			{
-				rank[i]++;
-			}
-		}
-	}
+	std::cout << "Name is : " << tom.name << "\n";
+	std::cout << "Number is : " << tom.number << "\n";
+	std::cout << "Score is : " << tom.score << "\n";
+	*/
 
-	for (int i = 0; i < 10; i++)
-	{
-		std::cout << rank[i] + 1 << ", ";
-	}
-	
+	/*
+	int number2{ 1 };
+	char name2[]{ "Doggy" };
+	float average2{ 90.1f };
+	char output2[256]{};
 
-	// 4번 문제
-	
-	int Scores4[10]{};
-	for (int i = 0; i < 10; ++i)
-	{
-		std::cout << "score [" << i + 1 << "] : ";
-		std::cin >> Scores4[i];
-	}
+	sprintf_s(output2, sizeof(output2), "%d번 학생 %s는 평균 %.1f 입니다.", number2, name2, average2);
+	puts(output2);
+	return 0;
+	*/
 
-	for (int i = 0; i < 10; i++)
-	{
-		for (int j = 0; j < 10; j++)
-		{
-			if (Scores4[i] > Scores4[j])
-			{
-				int change{ Scores4[i] };
-				Scores4[i] = Scores4[j];
-				Scores4[j] = change;
-			}
-		}
-	}
+	// sstream
+	bool b{ true };
+	int n{ 20 };
+	double d{ 10.0 };
+	int n2{ -5 };
 
-	for (int i = 0; i < 10; i++)
-	{
-		std::cout << Scores4[i] << ", ";
-	}
+	// true : 1
+	std::cout << std::boolalpha << b << " : ";
+	std::cout << std::noboolalpha << b << std::endl;
+
+	// 0x14 : 14
+	std::cout << std::hex;
+	std::cout << std::showbase << n << " : ";
+	std::cout << std::noshowbase << n << std::endl;
+	std::cout << std::dec;
+
+	// 10.0000 : 10
+	std::cout << std::showpoint << d << " : " << std::noshowpoint << d << std::endl;
 	
+	// +20 : 20
+	std::cout << std::showpos << n << " : " << std::noshowpos << d << std::endl;
+
+	// 0X14 : 0x14
+	std::cout << std::hex << std::showbase;
+	std::cout << std::uppercase << n << " : " << std::nouppercase << n << std::endl;
+	std::cout << std::dec << std::noshowbase;
+	
+	// -   5 : -5    :    -5
+	std::cout << std::setw(5) << std::internal << n2 << " : ";
+	std::cout << std::setw(5) << std::left << n2 << " : ";
+	std::cout << std::setw(5) << std::right << n2 << std::endl;
 }
