@@ -1,67 +1,122 @@
 ﻿#include <iostream>
-#include <iomanip>
+
 
 
 int main()
 {
+	// 1번 문자열을 입력받아 거꾸로 출력
 	/*
-	struct Student
+	char name[7]{};
+	std::cin >> name;
+
+	for (int i = sizeof(name); i >= 0; i--)
 	{
-		char name[10];
-		int number;
-		int score;
-	};
-
-	Student tom;
-
-	std::cout << "input name, number, score : ";
-	std::cin >> tom.name >> tom.number >> tom.score;
-
-	std::cout << "Name is : " << tom.name << "\n";
-	std::cout << "Number is : " << tom.number << "\n";
-	std::cout << "Score is : " << tom.score << "\n";
+		std::cout << name[i];
+	}
 	*/
 
+	// 2번 두 문자열을 입력하여 하나의 문자열로 만들어 출력합시다.
 	/*
-	int number2{ 1 };
-	char name2[]{ "Doggy" };
-	float average2{ 90.1f };
-	char output2[256]{};
+	char name1[7]{};
+	char name2[7]{};
+	std::cin >> name1 >> name2;
 
-	sprintf_s(output2, sizeof(output2), "%d번 학생 %s는 평균 %.1f 입니다.", number2, name2, average2);
-	puts(output2);
-	return 0;
+	char result[sizeof(name1) + sizeof(name2)]{};
+
+	for (int i = 0; i < sizeof(name2); i++)
+	{
+		result[i] = name1[i];
+		result[sizeof(name2) + i] = name2[i];
+	}
+
+	for (int i = 0; i < sizeof(name3); i++)
+	{
+		std::cout << name3[i];
+	}
 	*/
 
-	// sstream
-	bool b{ true };
-	int n{ 20 };
-	double d{ 10.0 };
-	int n2{ -5 };
+	// 3번 문자열을 입력받아 모두 대문자로 출력하는 프로그램을 만들어 봅시다.
+	/*
+	char name4[7]{};
+	std::cin >> name4;
 
-	// true : 1
-	std::cout << std::boolalpha << b << " : ";
-	std::cout << std::noboolalpha << b << std::endl;
+	for (int i = 0; i < sizeof(name4)-1; i++)
+	{
+		name4[i] = name4[i] - 32;
+	}
+	for (int i = 0; i < sizeof(name4); i++)
+	{
+		std::cout << name4[i];
+	}
+	*/
 
-	// 0x14 : 14
-	std::cout << std::hex;
-	std::cout << std::showbase << n << " : ";
-	std::cout << std::noshowbase << n << std::endl;
-	std::cout << std::dec;
-
-	// 10.0000 : 10
-	std::cout << std::showpoint << d << " : " << std::noshowpoint << d << std::endl;
+	// 4번 테트리스 블록을 회전해 봅시다.
+	/*
+	int block[3][3] = {
+		{0,1,0},
+		{0,1,1},
+		{0,1,0}
+	};
 	
-	// +20 : 20
-	std::cout << std::showpos << n << " : " << std::noshowpos << d << std::endl;
+	int rotBlock[3][3]{};
 
-	// 0X14 : 0x14
-	std::cout << std::hex << std::showbase;
-	std::cout << std::uppercase << n << " : " << std::nouppercase << n << std::endl;
-	std::cout << std::dec << std::noshowbase;
+	enum Command
+	{
+		LEFT = 1,
+		RIGHT = 2,
+		EXIT = 3
+	};
+	int command{};
+	while (true)
+	{
+		for (int y = 0; y < 3; ++y)
+		{
+			for (int x = 0; x < 3; ++x)
+			{
+				std::cout << block[y][x] << " ";
+			}
+			std::cout << std::endl;
+		}
+
+		std::cout << "명령 : ";
+		std::cin >> command;
+
+		int newX{}, newY{};
+
+		for (int y = 0; y < 3; ++y)
+		{
+			for (int x = 0; x < 3; ++x)
+			{
+				if (command == LEFT)
+				{
+					newX = y;
+					newY = 2 - x;
+				}
+				else if (command == RIGHT)
+				{
+					newX = 2 - y;
+					newY = x;
+				}
+
+				rotBlock[newY][newX] = block[y][x];
+			}
+		}
+
+		for (int y = 0; y < 3; ++y)
+		{
+			for (int x = 0; x < 3; ++x)
+			{
+				block[y][x] = rotBlock[y][x];
+			}
+		}
+
+		if (command == EXIT)
+		{
+			break;
+		}
+	}
+	*/
+
 	
-	// -   5 : -5    :    -5
-	std::cout << std::setw(5) << std::internal << n2 << " : ";
-	std::cout << std::setw(5) << std::left << n2 << " : ";
-	std::cout << std::setw(5) << std::right << n2 << std::endl;
+
 }
