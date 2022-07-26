@@ -25,11 +25,21 @@ int main()
 
 	while (true)
 	{
+		int value;
 		std::cout << "[" << count << "회차 숫자야구]" << std::endl;
 		while (true)
 		{
 			std::cout << "1부터 9까지의 숫자를 입력하세요 : ";
-			std::cin >> userBall[0] >> userBall[1] >> userBall[2];
+			std::cin >> value;
+			if (123 < value ||
+				value << 999)
+			{
+				userBall[0] = value / 100;
+				userBall[1] = (value - userBall[0] * 100) / 10;
+				userBall[2] = (value - userBall[0] * 100 - userBall[1] * 10);
+			}
+			// std::cin >> userBall[0] >> userBall[1] >> userBall[2];
+			
 			if (userBall[0] < 1 || userBall[0] > 9 ||
 				userBall[1] < 1 || userBall[1] > 9 ||
 				userBall[2] < 1 || userBall[2] > 9)
