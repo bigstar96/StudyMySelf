@@ -2,22 +2,21 @@
 
 // Recursive Function
 
-int RecursiveNumber(int x)
-{
-	if (x < 0)
-	{
-		std::cout << std::endl;
-		return 0;
-	}
 
-	RecursiveNumber(x - 1);
-	std::cout << x << ", ";
+int Factorial(int x)
+{
 	
+	if (x < 1)
+	{
+		return 1;
+	}
+	return x * Factorial(x - 1);
 }
 
 int main()
 {
-	RecursiveNumber(9);
+	int factorial;
+	std::cin >> factorial;
 
-	
+	std::cout << "!" << factorial << " = " << Factorial(factorial);
 }
