@@ -2,21 +2,29 @@
 
 // Recursive Function
 
-
-int Factorial(int x)
+void Fibonacci(int number, int number2)
 {
-	
-	if (x < 1)
+	if (number2 < number)
+	{
+		return;
+	}
+
+	if (number == 1)
 	{
 		return 1;
 	}
-	return x * Factorial(x - 1);
+	if (number == 2)
+	{
+		return 1;
+	}
+	
+	std::cout << Fibonacci(number - 1, number2) + Fibonacci(number - 2, number2) << " ";
 }
 
 int main()
 {
-	int factorial;
-	std::cin >> factorial;
+	int number;
+	std::cin >> number;
 
-	std::cout << "!" << factorial << " = " << Factorial(factorial);
+	Fibonacci(number, number);
 }
