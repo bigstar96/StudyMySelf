@@ -2,29 +2,24 @@
 
 // Recursive Function
 
-void Fibonacci(int number, int number2)
+void Move(char from, char to)
 {
-	if (number2 < number)
+	std::cout << from << "에서" << to << "로 옮깁니다." << std::endl;
+}
+
+void Hanoi(int n, char from, char temp, char to)
+{
+	if (n == 1)
 	{
+		Move(from, to);
 		return;
 	}
-
-	if (number == 1)
-	{
-		return 1;
-	}
-	if (number == 2)
-	{
-		return 1;
-	}
-	
-	std::cout << Fibonacci(number - 1, number2) + Fibonacci(number - 2, number2) << " ";
+	Hanoi(n - 1, from, to, temp); // from -> temp
+	Move(from, to);
+	Hanoi(n - 1, temp, from, to); // temp -> to
 }
 
 int main()
 {
-	int number;
-	std::cin >> number;
-
-	Fibonacci(number, number);
+	Hanoi(10, 'A', 'B', 'C'); // A -> C
 }
