@@ -4,13 +4,6 @@
 
 bool Succes{ true };
 
-enum command
-{
-	Left = 1,
-	Midle = 2,
-	Right = 3
-};
-
 const int succes[3][3]{
 		{ 0, 0, 1 },
 		{ 0, 0, 2 },
@@ -40,15 +33,19 @@ void Move(int hanoi[3][3], int move1, int move2)
 			{
 				if (hanoi[j][move2] != 0)
 				{
-					if (hanoi[j][move2] > hanoi[j + 1][move2])
+					if (hanoi[i][move1] < hanoi[j][move2])
 					{
-						hanoi[j][move2] = hanoi[i][move1];
+						hanoi[j - 1][move2] = hanoi[i][move1];
 						hanoi[i][move1] = 0;
 						return;
 					}
+					else
+					{
+						std::cout << "큰수를 작은수 위에 올릴수 없습니다." << std::endl;
+						return;
+					}
 				}
-
-				if (hanoi[0][move2] == 0 &&
+				else if (hanoi[0][move2] == 0 &&
 					hanoi[1][move2] == 0 &&
 					hanoi[2][move2] == 0)
 				{
@@ -62,17 +59,15 @@ void Move(int hanoi[3][3], int move1, int move2)
 	
 }
 
-void Hanoi(int hanoi[3][3], char from, char temp, char to)
+void Hanoi(int hanoi[3][3])
 {
-	
-
 	int move1{ 0 }, move2{ 0 };
+
 	while (Succes)
 	{
 		PrintInfo(hanoi);
 		if (hanoi == succes)
 		{
-			PrintInfo(hanoi);
 			std::cout << "정답입니다." << std::endl;
 			return;
 		}
@@ -80,38 +75,31 @@ void Hanoi(int hanoi[3][3], char from, char temp, char to)
 		std::cout << "어떻게 움직일까요? ";
 		std::cin >> move1 >> move2;
 
-		switch (move2)
+		if (move1 == move2)
 		{
-		case Left:
-			Move(hanoi, move1 - 1, move2 - 1);
-			break;
-
-		case Midle:
-			Move(hanoi, move1 - 1, move2 - 1);
-			break;
-
-		case Right:
-			Move(hanoi, move1 - 1, move2 - 1);
-			break;
-
-		default:
-			std::cout << "잘못 입력하셨습니다." << std::endl;
-			break;
+			std::cout << "같은 곳에는 움직일수 없습니다." << std::endl;
+			continue;
+		}
+		else if (move1 < 0 || 3 < move1 ||
+			move2 < 0 || 3 < move2 ||
+			move1 == 0 || move2 == 0)
+		{
+			std::cout << "입력하신 숫자가 1~3 이 아닙니다." << std::endl;
+			continue;
 		}
 
-		if (hanoi == succes)
+
+		Move(hanoi, move1 - 1, move2 - 1);
+
+		if (hanoi[0][2] == succes[0][2] &&
+			hanoi[0][1] == succes[0][1] &&
+			hanoi[0][0] == succes[0][0])
 		{
+			PrintInfo(hanoi);
+			std::cout << "정답입니다!" << std::endl;
 			Succes = false;
 		}
 	}
-	
-
-	
-
-	// Hanoi(hanoi, from, to, temp); // from -> temp
-	// Move(from, to);
-	// Hanoi(hanoi, temp, from, to); // temp -> to
-	
 }
 
 int main()
@@ -122,5 +110,7 @@ int main()
 		{ 3, 0, 0 }
 	};
 
-	Hanoi(hanoi, 'A', 'B', 'C'); // A -> C
+	Hanoi(hanoi);
+
+	return 0;
 }
