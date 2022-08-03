@@ -5,6 +5,8 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StudyMySelf", "StudyMySelf\StudyMySelf.vcxproj", "{3CBEDF72-6E3F-4186-8F2B-FD840488C877}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StudyMemo", "StudyMemo\StudyMemo.vcxproj", "{AAEC2A15-9A59-4A93-A339-215EFF6B1145}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{3CBEDF72-6E3F-4186-8F2B-FD840488C877}.Release|x64.Build.0 = Release|x64
 		{3CBEDF72-6E3F-4186-8F2B-FD840488C877}.Release|x86.ActiveCfg = Release|Win32
 		{3CBEDF72-6E3F-4186-8F2B-FD840488C877}.Release|x86.Build.0 = Release|Win32
+		{AAEC2A15-9A59-4A93-A339-215EFF6B1145}.Debug|x64.ActiveCfg = Debug|x64
+		{AAEC2A15-9A59-4A93-A339-215EFF6B1145}.Debug|x64.Build.0 = Debug|x64
+		{AAEC2A15-9A59-4A93-A339-215EFF6B1145}.Debug|x86.ActiveCfg = Debug|Win32
+		{AAEC2A15-9A59-4A93-A339-215EFF6B1145}.Debug|x86.Build.0 = Debug|Win32
+		{AAEC2A15-9A59-4A93-A339-215EFF6B1145}.Release|x64.ActiveCfg = Release|x64
+		{AAEC2A15-9A59-4A93-A339-215EFF6B1145}.Release|x64.Build.0 = Release|x64
+		{AAEC2A15-9A59-4A93-A339-215EFF6B1145}.Release|x86.ActiveCfg = Release|Win32
+		{AAEC2A15-9A59-4A93-A339-215EFF6B1145}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
