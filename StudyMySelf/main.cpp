@@ -1,19 +1,30 @@
 ﻿#include <iostream>
 
-int Sum(int x, int y)
+int Sigma(int (*f)(int x),int m, int n)
 {
-	return x + y;
+	std::cout << "Sigma->f : " << &f << std::endl;
+
+	int sum = 0;
+	for (int k = m; k <= n; ++k)
+	{
+		sum += f(k);
+	}
+
+	return sum;
+}
+
+int NormalFunction(int x)
+{
+	return x;
+}
+
+int SquareFunction(int x)
+{
+	return x * x;
 }
 
 int main()
 {
-	int x{ 1 }, y{ 2 };
-	std::cout << &x << ", " << &y << std::endl;
-	std::cout << Sum << ", " << main << std::endl;
-	std::cout << &Sum << ", " << &main << std::endl;
-	Sum(x, y);
-
-	int array1[10];
-
-	std::cout << array1 << ", " << &array1 << std::endl;
+	std::cout << Sigma(NormalFunction, 1, 10) << std::endl;
+	std::cout << Sigma(SquareFunction, 1, 10) << std::endl;
 }
