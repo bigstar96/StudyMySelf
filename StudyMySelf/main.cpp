@@ -1,6 +1,20 @@
-﻿#include <iostream>
+﻿#include <iostream>	
 
-void Sort(int numbers[], int count)
+using comparison = bool(*)(int, int);
+
+// 오름차순
+bool Asscending(int x, int y)
+{
+	return x > y;
+}
+
+// 내림차순
+bool Descending(int x, int y)
+{
+	return x < y;
+}
+
+void Sort(int numbers[], int count, comparison f)
 {
 	int temp{};
 
@@ -8,7 +22,7 @@ void Sort(int numbers[], int count)
 	{
 		for (int j = i + 1; j < count; ++j)
 		{
-			if (numbers[i] < numbers[j])
+			if (f(numbers[i], numbers[j]))
 			{
 				temp = numbers[i];
 				numbers[i] = numbers[j];
@@ -20,20 +34,13 @@ void Sort(int numbers[], int count)
 
 int main()
 {
-	const int NumArray = 5;
+	const int NumArray = 10;
 	int scores[NumArray]{ 20,10,40,15,30 };
 
-	Sort(scores, NumArray);
+	Sort(scores, NumArray, Asscending);
 
-	int count{ 1 };
 	for (auto e : scores)
 	{
-		if (count == NumArray)
-		{
-			std::cout << e;
-			continue;
-		}
 		std::cout << e << ", ";
-		count++;
 	}
 }
