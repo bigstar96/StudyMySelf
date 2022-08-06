@@ -1,19 +1,19 @@
 ﻿#include <iostream>
 
-void PrintValue(const int& x)
+int Sum(int x, int y)
 {
-	std::cout << x << std::endl;
+	return x + y;
 }
 
 int main()
 {
-	int x{ 10 };
+	int x{ 1 }, y{ 2 };
+	std::cout << &x << ", " << &y << std::endl;
+	std::cout << Sum << ", " << main << std::endl;
+	std::cout << &Sum << ", " << &main << std::endl;
+	Sum(x, y);
 
-	PrintValue(x);
+	int array1[10];
 
-	const int y{ 20 };
-	PrintValue(y);
-	PrintValue(30);
-	PrintValue(40 + 50);
-
+	std::cout << array1 << ", " << &array1 << std::endl;
 }
