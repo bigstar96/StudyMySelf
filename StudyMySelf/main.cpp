@@ -1,16 +1,39 @@
 ﻿#include <iostream>
 
-typedef int (*FunctionPointer)(float); // C-Type
-using FunctionPoint = int(*)(float);
-
-int MyFunction(float f)
+void Sort(int numbers[], int count)
 {
-	return 0;
-}
+	int temp{};
 
+	for (int i = 0; i < count; ++i)
+	{
+		for (int j = i + 1; j < count; ++j)
+		{
+			if (numbers[i] < numbers[j])
+			{
+				temp = numbers[i];
+				numbers[i] = numbers[j];
+				numbers[j] = temp;
+			}
+		}
+	}
+}
 
 int main()
 {
-	FunctionPointer funcPtr = MyFunction;
-	FunctionPoint Funcptr = MyFunction;
+	const int NumArray = 5;
+	int scores[NumArray]{ 20,10,40,15,30 };
+
+	Sort(scores, NumArray);
+
+	int count{ 1 };
+	for (auto e : scores)
+	{
+		if (count == NumArray)
+		{
+			std::cout << e;
+			continue;
+		}
+		std::cout << e << ", ";
+		count++;
+	}
 }
