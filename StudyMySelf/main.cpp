@@ -1,18 +1,19 @@
 ﻿#include <iostream>
 
-void swap(int& x, int& y)
+void PrintValue(const int& x)
 {
-	int temp = x;
-	x = y;
-	y = temp;
+	std::cout << x << std::endl;
 }
 
 int main()
 {
-	int x{ 10 }, y{ 20 };
+	int x{ 10 };
 
-	swap(x, y);
+	PrintValue(x);
 
-	std::cout << x << ", " << y;
+	const int y{ 20 };
+	PrintValue(y);
+	PrintValue(30);
+	PrintValue(40 + 50);
 
 }
