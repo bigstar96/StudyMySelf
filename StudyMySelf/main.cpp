@@ -1,15 +1,18 @@
 ﻿#include <iostream>
 
+void swap(int& x, int& y)
+{
+	int temp = x;
+	x = y;
+	y = temp;
+}
+
 int main()
 {
-	struct Status
-	{
-		int HP;
-		int MP;
-	};
+	int x{ 10 }, y{ 20 };
 
-	Status myStatus{ 100,10 };
-	Status* pStatus = &myStatus;
+	swap(x, y);
 
-	
+	std::cout << x << ", " << y;
+
 }
