@@ -1,46 +1,37 @@
 ﻿#include <iostream>	
 
-using comparison = bool(*)(int, int);
-
-// 오름차순
-bool Asscending(int x, int y)
-{
-	return x > y;
-}
-
-// 내림차순
-bool Descending(int x, int y)
-{
-	return x < y;
-}
-
-void Sort(int numbers[], int count, comparison f)
-{
-	int temp{};
-
-	for (int i = 0; i < count; ++i)
-	{
-		for (int j = i + 1; j < count; ++j)
-		{
-			if (f(numbers[i], numbers[j]))
-			{
-				temp = numbers[i];
-				numbers[i] = numbers[j];
-				numbers[j] = temp;
-			}
-		}
-	}
-}
-
 int main()
 {
-	const int NumArray = 10;
-	int scores[NumArray]{ 20,10,40,15,30 };
+	int array[10]{ 1,2,3,4,5,6,7,8,9,10 };
 
-	Sort(scores, NumArray, Asscending);
-
-	for (auto e : scores)
+	for (int i = 0; i < 10; i++)
 	{
-		std::cout << e << ", ";
+		std::cout << &array[i] << " " << std::endl;
 	}
+
+	int* p = &array[1];
+	std::cout << p << std::endl;
+	p = array + 1;
+	std::cout << p << std::endl;
+
+	int sum1{}, sum2{}, sum3{};
+	// 기존 방법
+	for (int i = 0; i < 10; ++i)
+	{
+		sum1 += array[i];
+	}
+	// 포인터 활용
+	for (int i = 0; i < 10; ++i)
+	{
+		sum2 += *(array + i);
+	}
+	// 포인터 및 for문 고급
+	for (int i = 0, *p = array; i < 10; ++i, ++p)
+	{
+		sum3 += *p;
+	}
+
+
+	std::cout << sum1 << " " << sum2 << " " << sum3 << std::endl;
+
 }
