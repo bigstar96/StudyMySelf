@@ -1,23 +1,22 @@
 ﻿#include <iostream>	
 
-int GetLength(char* pc)
-{
-	int count{ 0 };
 
-	while (*pc != '\0')
-	{
-		count++;
-		pc++;
-	}
-
-	return count;
-}
 
 int main()
 {
-	char input[1000];
+	char myString[5] = "test";
 
-	std::cin >> input;
+	std::cout << "length : " << strlen(myString) << std::endl;
+	std::cout << "size : " << sizeof(myString) << std::endl;
 
-	std::cout << input << " : " << GetLength(input) << std::endl;
+	char compareStr[5];
+
+	strcpy_s(compareStr, 5, "boy");
+	std::cout << "Compare with " << compareStr << " : " << strcmp(myString, compareStr) << std::endl;
+	
+	strcpy_s(compareStr, 5, "test");
+	std::cout << "Compare with " << compareStr << " : " << strcmp(myString, compareStr) << std::endl;
+
+	strcpy_s(compareStr, 5, "word");
+	std::cout << "Compare with " << compareStr << " : " << strcmp(myString, compareStr) << std::endl;
 }
