@@ -1,15 +1,23 @@
 ﻿#include <iostream>	
 
+int GetLength(char* pc)
+{
+	int count{ 0 };
 
+	while (*pc != '\0')
+	{
+		count++;
+		pc++;
+	}
+
+	return count;
+}
 
 int main()
 {
-	char myString[] = "Doggy";
-	char* p = myString;
+	char input[1000];
 
-	std::cout << p << std::endl;
+	std::cin >> input;
 
-	int myInteger = 5;
-	char myString2[] = { " is integer value." };
-	std::cout << myString2 + myInteger << std::endl;
+	std::cout << input << " : " << GetLength(input) << std::endl;
 }
