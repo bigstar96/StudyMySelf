@@ -4,18 +4,12 @@
 
 int main()
 {
-	char c[6];
-	char* pc;
+	char myString[] = "Doggy";
+	char* p = myString;
 
-	c[0] = 'd';
-	c[1] = 'o';
-	c[2] = 'g';
-	c[3] = 'g';
-	c[4] = 'y';
+	std::cout << p << std::endl;
 
-	std::cout << c << std::endl;
-
-	pc = &c[0];
-
-	std::cout << pc << std::endl;
+	int myInteger = 5;
+	char myString2[] = { " is integer value." };
+	std::cout << myString2 + myInteger << std::endl;
 }
