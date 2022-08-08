@@ -1,22 +1,28 @@
 ﻿#include <iostream>	
 
+void MyFunction1();
+void MyFunction2();
 
+char gString[] = "MEMORY LAYOUT";
+int gInteger;
 
 int main()
 {
-	char myString[5] = "test";
+	int* allocated = new int;
 
-	std::cout << "length : " << strlen(myString) << std::endl;
-	std::cout << "size : " << sizeof(myString) << std::endl;
+	MyFunction1();
 
-	char compareStr[5];
+	delete allocated;
+}
 
-	strcpy_s(compareStr, 5, "boy");
-	std::cout << "Compare with " << compareStr << " : " << strcmp(myString, compareStr) << std::endl;
-	
-	strcpy_s(compareStr, 5, "test");
-	std::cout << "Compare with " << compareStr << " : " << strcmp(myString, compareStr) << std::endl;
+void MyFunction1()
+{
+	int local;
 
-	strcpy_s(compareStr, 5, "word");
-	std::cout << "Compare with " << compareStr << " : " << strcmp(myString, compareStr) << std::endl;
+	MyFunction2();
+}
+
+void MyFunction2()
+{
+	int local;
 }
