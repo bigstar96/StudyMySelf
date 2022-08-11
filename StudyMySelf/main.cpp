@@ -1,28 +1,18 @@
 ﻿#include <iostream>	
 
-void MyFunction1();
-void MyFunction2();
-
-char gString[] = "MEMORY LAYOUT";
-int gInteger;
+double LinearEquation(int a, int b)
+{
+	return -(b / a);
+}
 
 int main()
 {
-	int* allocated = new int;
+	int a;
+	int b;
 
-	MyFunction1();
+	std::cin >> a >> b;
 
-	delete allocated;
-}
-
-void MyFunction1()
-{
-	int local;
-
-	MyFunction2();
-}
-
-void MyFunction2()
-{
-	int local;
+	std::cout << LinearEquation(a, b);
+	
+	return 0;
 }
