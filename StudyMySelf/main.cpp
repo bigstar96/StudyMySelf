@@ -2,7 +2,7 @@
 
 double LinearEquation(int a, int b)
 {
-	return -(b / a);
+	return -((double)b / a);
 }
 
 int main()
