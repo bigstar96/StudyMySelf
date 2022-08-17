@@ -1,217 +1,177 @@
 ﻿#include <iostream>
 
-const char gStageData[] = "\
-########\n\
-# .. p #\n\
-# oo   #\n\
-#      #\n\
-########";
-
-const int gStageWidth = 8;
-const int gStageHeight = 5;
-
-enum Object
+void PrintArray(int input[], int size)
 {
-	SPACE,
-	WALL,
-	GOAL,
-	BLOCK,
-	BLOCK_ON_GOAL,
-	MAN,
-	MAN_ON_GOAL,
-
-	UNKNOWN
-};
-
-void initialize(Object* s, int w, int h, const char* stageData)
-{
-	const char* d = stageData;
-	int x = 0;
-	int y = 0;
-
-	while (*d != '\0')
+	for (int i = 0; i < size; ++i)
 	{
-		Object t;
+		std::cout << input[i] << " ";
+	}
+}
 
-		switch (*d)
+void Swap(int& value1, int& value2)
+{
+	int temp = value1;
+	value1 = value2;
+	value2 = temp;
+}
+
+void SequentialSort(int input[], int size)
+{
+	for (int i = 0; i < size - 1; ++i)
+	{
+		for (int j = i + 1; j < size; ++j)
 		{
-		case '#':
-			t = WALL;
-			break;
-
-		case ' ':
-			t = SPACE;
-			break;
-
-		case '.':
-			t = GOAL;
-			break;
-
-		case 'o':
-			t = BLOCK;
-			break;
-
-		case 'O':
-			t = BLOCK_ON_GOAL;
-			break;
-
-		case 'p':
-			t = MAN;
-			break;
-
-		case 'P':
-			t = MAN_ON_GOAL;
-			break;
-
-		case '\0':
-			t = UNKNOWN;
-			x = 0;
-			y++;
-			break;
-
-		default:
-			t = UNKNOWN;
-			break;
-		}
-		++d;
-		if (t != UNKNOWN)
-		{
-			s[y * w + x] = t;
-			++x;
+			if (input[i] > input[j])
+			{
+				Swap(input[i], input[j]);
+			}
 		}
 	}
 }
 
-void Draw(const Object* s, int w, int h)
+void SelectionSort(int input[], int size)
 {
-	const char font[] = { ' ', '#', '.', 'o', 'O', 'p', 'P' };
-	for (int y = 0; y < h; ++y)
+	for (int i = 0; i < size; ++i)
 	{
-		for (int x = 0; x < w; ++x)
+		int minIndex = i;
+		for (int j = i; j < size; ++j)
 		{
-			Object o = s[y * w + x];
-			std::cout << font[o];
+			if (input[minIndex] > input[j])
+			{
+				minIndex = j;
+			}
 		}
-		std::cout << std::endl;
+		if (minIndex != i)
+		{
+			Swap(input[i], input[minIndex]);
+		}
 	}
 }
 
-void Update(Object* s, char input, int w, int h)
+void BubbleSort(int input[], int size)
 {
-	int dx = 0;
-	int dy = 0;
-
-	switch (input)
+	for (int phase = 0; phase < size - 1; ++phase)
 	{
-	case 'a':
-		dx = -1;
-		break;
-
-	case 'd':
-		dx = 1;
-		break;
-
-	case 'w':
-		dy = -1;
-		break;
-
-	case 's':
-		dy = 1;
-		break;
-	}
-
-	int i = -1;
-	for (i = 0; i < w * h; ++i)
-	{
-		if (s[i] == MAN || s[i] == MAN_ON_GOAL)
+		for (int k = 0; k < size - phase - 1; ++k)
 		{
-			break;
+			if (input[k] > input[k + 1])
+			{
+				Swap(input[k], input[k + 1]);
+			}
+		}
+	}
+}
+
+void InsertionSort(int input[], int size)
+{
+	for (int i = 1; i < size; ++i)
+	{
+		int j = i;
+		int target = input[i];
+
+		while (--j >= 0 && target < input[j])
+		{
+			input[j + 1] = input[j];
+			input[j] = target;
+		}
+	}
+}
+
+void Merge(int input[], int start, int half, int end, int temp[])
+{
+	int i = start;
+	int j = half + 1;
+	int tempIndex = 0;
+
+	// 왼쪽 블럭과 오른쪽 블럭을 정렬 합병
+	while (i <= half && j <= end)
+	{
+		if (input[i] < input[j])
+		{
+			temp[tempIndex++] = input[i++];
+		}
+		else
+		{
+			temp[tempIndex++] = input[j++];
 		}
 	}
 
-	int x = i % w;
-	int y = i / w;
+	// 남은 인덱스들을 병합
+	// 왼쪽 or 오른쪽 블럭이 남아 있을경우 대비해서 각각 병합
+	while (i <= half)
+	{
+		temp[tempIndex++] = input[i++];
+	}
 
-	int tx = x + dx;
-	int ty = y + dy;
+	while (j <= end)
+	{
+		temp[tempIndex++] = input[j++];
+	}
 
-	if (tx < 0 || ty < 0 || tx >= w || ty >= h)
+	tempIndex = 0;
+
+	for (int i = start; i <= end; ++i)
+	{
+		input[i] = temp[tempIndex++];
+	}
+}
+
+void MergeSort(int input[], int start, int end, int temp[])
+{
+	if (start >= end)
 	{
 		return;
 	}
+	
+	int half = (start + end) / 2;
 
-	int p = y * w + x;
-	int tp = ty * w + tx;
-
-	if (s[tp] == SPACE || s[tp] == GOAL)
-	{
-		s[tp] = (s[tp] == GOAL) ? MAN_ON_GOAL : MAN;
-		s[p] = (s[p] == MAN_ON_GOAL) ? GOAL : SPACE;
-	}
-	else if (s[tp] == BLOCK || s[tp] == BLOCK_ON_GOAL)
-	{
-		int tx2 = tx + dx;
-		int ty2 = ty + dy;
-		if (tx2 < 0 || ty2 < 0 || tx2 >= w || ty2 >= h)
-		{
-			return;
-		}
-
-		int tp2 = (ty + dy) * w + (tx + dx);
-		if (s[tp2] == SPACE || s[tp2] == GOAL)
-		{
-			s[tp2] = (s[tp2] == GOAL) ? BLOCK_ON_GOAL : BLOCK;
-			s[tp] = (s[tp] == BLOCK_ON_GOAL) ? MAN_ON_GOAL : MAN;
-			s[p] = (s[p] == MAN_ON_GOAL) ? GOAL : SPACE;
-		}
-	}
+	MergeSort(input, start, half, temp);
+	MergeSort(input, half + 1, end, temp);
+	Merge(input, start, half, end, temp);
 }
 
-bool CheckClear(const Object* s, int w, int h)
+void QuickSort(int input[], int left, int right)
 {
-	for (int i = 0; i < w * h; ++i)
+	int i = left;
+	int j = right;
+	int pivot = input[(left + right) / 2];
+	int temp;
+	do
 	{
-		if (s[i] == BLOCK)
+		while (input[i] < pivot)
 		{
-			return false;
+			i++;
 		}
-	}
+		while (input[j] > pivot)
+		{
+			j--;
+		}
+		if (i <= j)
+		{
+			Swap(input[i], input[j]);
+			i++;
+			j--;
+		}
+	} while (i <= j);
 
-	return true;
+	if (left < j) QuickSort(input, left, j);
+
+	if (i < right) QuickSort(input, i, right);
 }
 
 int main()
 {
-	Object* s = new Object[gStageWidth * gStageHeight];
+	const int size = 5;
+	int Array[size] = { 8,7,2,3,1 };
+	PrintArray(Array, size);
+	std::cout << std::endl;
 
-	initialize(s, gStageWidth, gStageHeight, gStageData);
+	/*int tempArray[size] = {};
+	MergeSort(Array, 0, size - 1, tempArray);*/
 
-	while (true)
-	{
-		Draw(s, gStageWidth, gStageHeight);
+	QuickSort(Array, 0, size - 1);
+	PrintArray(Array, size);
+	std::cout << std::endl;
 
-		if (CheckClear(s, gStageWidth, gStageHeight))
-		{
-			break;
-		}
 
-		std::cout << "a:left d:right w:up s:dwon. command?" << std::endl;
-		char input;
-		std::cin >> input;
-
-		Update(s, input, gStageWidth, gStageHeight);
-
-	}
-
-	std::cout << "Congratulations! you win." << std::endl;
-
-	delete[] s;
-	s = 0;
-
-	while (true)
-	{
-
-	}
-
-	return 0;
 }
