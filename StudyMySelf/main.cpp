@@ -6,59 +6,24 @@ const char gStageData[] = "\
 # oo   #\n\
 #      #\n\
 ########";
+
 const int gStageWidth = 8;
 const int gStageHeight = 5;
 
-enum Object {
-	OBJ_SPACE,
-	OBJ_WALL,
-	OBJ_GOAL,
-	OBJ_BLOCK,
-	OBJ_BLOCK_ON_GOAL,
-	OBJ_MAN,
-	OBJ_MAN_ON_GOAL,
+enum Object
+{
+	SPACE,
+	WALL,
+	GOAL,
+	BLOCK,
+	BLOCK_ON_GOAL,
+	MAN,
+	MAN_ON_GOAL,
 
-	OBJ_UNKNOWN
+	UNKNOWN
 };
 
-void initialize(Object* state, int w, int h, const char* stageData);
-void draw(const Object* state, int w, int h);
-void update(Object* state, char input, int w, int h);
-bool checkClear(const Object* state, int w, int h);
-
-int main()
-{
-	Object* state = new Object[gStageHeight * gStageWidth];
-	initialize(state, gStageWidth, gStageHeight, gStageData);
-
-	while (true)
-	{
-		draw(state, gStageWidth, gStageHeight);
-
-		if (checkClear(state, gStageWidth, gStageHeight))
-		{
-			break;
-		}
-
-		std::cout << "a:left d:right w:up s:down. command? : " << std::endl;
-		char input;
-		std::cin >> input;
-
-		update(state, input, gStageWidth, gStageHeight);
-	}
-
-	std::cout << "Congratulations! you win." << std::endl;
-
-	delete[] state;
-	state = 0;
-	while (true)
-	{
-
-	}
-	return 0;
-}
-
-void initialize(Object* state, int w, int h, const char* stageData)
+void initialize(Object* s, int w, int h, const char* stageData)
 {
 	const char* d = stageData;
 	int x = 0;
@@ -71,67 +36,67 @@ void initialize(Object* state, int w, int h, const char* stageData)
 		switch (*d)
 		{
 		case '#':
-			t = OBJ_WALL;
+			t = WALL;
 			break;
 
 		case ' ':
-			t = OBJ_SPACE;
+			t = SPACE;
 			break;
 
 		case '.':
-			t = OBJ_GOAL;
+			t = GOAL;
 			break;
 
 		case 'o':
-			t = OBJ_BLOCK;
+			t = BLOCK;
 			break;
 
 		case 'O':
-			t = OBJ_BLOCK_ON_GOAL;
+			t = BLOCK_ON_GOAL;
 			break;
 
 		case 'p':
-			t = OBJ_MAN;
+			t = MAN;
 			break;
 
 		case 'P':
-			t = OBJ_MAN_ON_GOAL;
+			t = MAN_ON_GOAL;
 			break;
-			
-		case '\n':
+
+		case '\0':
+			t = UNKNOWN;
 			x = 0;
-			++y;
-			t = OBJ_UNKNOWN;
+			y++;
 			break;
 
 		default:
-			t = OBJ_UNKNOWN;
+			t = UNKNOWN;
 			break;
 		}
 		++d;
-		if (t != OBJ_UNKNOWN)
+		if (t != UNKNOWN)
 		{
-			state[y * w + x] = t;
+			s[y * w + x] = t;
 			++x;
 		}
 	}
 }
 
-void draw(const Object* state, int w, int h)
+void Draw(const Object* s, int w, int h)
 {
-	const char font[] = { ' ','#','.','o','O','p','P' };
+	const char font[] = { ' ', '#', '.', 'o', 'O', 'p', 'P' };
 	for (int y = 0; y < h; ++y)
 	{
 		for (int x = 0; x < w; ++x)
 		{
-			Object o = state[y * w + x];
+			Object o = s[y * w + x];
 			std::cout << font[o];
 		}
 		std::cout << std::endl;
 	}
 }
 
-void update(Object* state, char input, int w, int h)
+void Update(Object* s, char input, int w, int h)
 {
 	int dx = 0;
 	int dy = 0;
@@ -158,11 +123,12 @@ void update(Object* state, char input, int w, int h)
 	int i = -1;
 	for (i = 0; i < w * h; ++i)
 	{
-		if (state[i] == OBJ_MAN || state[i] == OBJ_MAN_ON_GOAL)
+		if (s[i] == MAN || s[i] == MAN_ON_GOAL)
 		{
 			break;
 		}
 	}
+
 	int x = i % w;
 	int y = i / w;
 
@@ -176,12 +142,13 @@ void update(Object* state, char input, int w, int h)
 
 	int p = y * w + x;
 	int tp = ty * w + tx;
-	if (state[tp] == OBJ_SPACE || state[tp] == OBJ_GOAL)
+
+	if (s[tp] == SPACE || s[tp] == GOAL)
 	{
-		state[tp] = (state[tp] == OBJ_GOAL) ? OBJ_MAN_ON_GOAL : OBJ_MAN;
-		state[p] = (state[p] == OBJ_MAN_ON_GOAL) ? OBJ_GOAL : OBJ_SPACE;
+		s[tp] = (s[tp] == GOAL) ? MAN_ON_GOAL : MAN;
+		s[p] = (s[p] == MAN_ON_GOAL) ? GOAL : SPACE;
 	}
-	else if (state[tp] == OBJ_BLOCK || state[tp] == OBJ_BLOCK_ON_GOAL)
+	else if (s[tp] == BLOCK || s[tp] == BLOCK_ON_GOAL)
 	{
 		int tx2 = tx + dx;
 		int ty2 = ty + dy;
@@ -191,23 +158,60 @@ void update(Object* state, char input, int w, int h)
 		}
 
 		int tp2 = (ty + dy) * w + (tx + dx);
-		if (state[tp2] == OBJ_SPACE || state[tp2] == OBJ_GOAL)
+		if (s[tp2] == SPACE || s[tp2] == GOAL)
 		{
-			state[tp2] = (state[tp2] == OBJ_GOAL) ? OBJ_BLOCK_ON_GOAL : OBJ_BLOCK;
-			state[tp] = (state[tp] == OBJ_BLOCK_ON_GOAL) ? OBJ_MAN_ON_GOAL : OBJ_MAN;
-			state[p] = (state[p] == OBJ_MAN_ON_GOAL) ? OBJ_GOAL : OBJ_SPACE;
+			s[tp2] = (s[tp2] == GOAL) ? BLOCK_ON_GOAL : BLOCK;
+			s[tp] = (s[tp] == BLOCK_ON_GOAL) ? MAN_ON_GOAL : MAN;
+			s[p] = (s[p] == MAN_ON_GOAL) ? GOAL : SPACE;
 		}
 	}
 }
 
-bool checkClear(const Object* state, int w, int h)
+bool CheckClear(const Object* s, int w, int h)
 {
 	for (int i = 0; i < w * h; ++i)
 	{
-		if (state[i] == OBJ_BLOCK)
+		if (s[i] == BLOCK)
 		{
 			return false;
 		}
 	}
+
 	return true;
+}
+
+int main()
+{
+	Object* s = new Object[gStageWidth * gStageHeight];
+
+	initialize(s, gStageWidth, gStageHeight, gStageData);
+
+	while (true)
+	{
+		Draw(s, gStageWidth, gStageHeight);
+
+		if (CheckClear(s, gStageWidth, gStageHeight))
+		{
+			break;
+		}
+
+		std::cout << "a:left d:right w:up s:dwon. command?" << std::endl;
+		char input;
+		std::cin >> input;
+
+		Update(s, input, gStageWidth, gStageHeight);
+
+	}
+
+	std::cout << "Congratulations! you win." << std::endl;
+
+	delete[] s;
+	s = 0;
+
+	while (true)
+	{
+
+	}
+
+	return 0;
 }
