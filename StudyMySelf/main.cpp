@@ -1,47 +1,104 @@
 ﻿#include <iostream>
-#include <chrono>
 
-using Comparison = bool (*)(int, int);
+using namespace std;
 
-bool Asscending(int x, int y)
+const int STACK_SIZE = 10;
+
+enum Command
 {
-	return x < y;
+	PUSH = 1,
+	POP = 2
+};
+
+struct Stack
+{
+	int container[STACK_SIZE]{};
+	int topIndex = -1;
+};
+
+void PrintInfo()
+{
+	std::cout << " <STACK> " << std::endl;
+	std::cout << "[1] push" << std::endl;
+	std::cout << "[2] pop" << std::endl;
+	std::cout << "---------" << std::endl;
 }
 
-bool Descending(int x, int y)
+void PrintStack(Stack& stack)
 {
-	return x > y;
-}
-
-void Sort(int numbers[], int count, Comparison f)
-{
-	int temp{};
-	
-	for (int i = 0; i < count; ++i)
+	std::cout << "---stack---" << std::endl;
+	if (stack.topIndex < 0)
 	{
-		for (int j = i + 1; j < count; ++j)
+		std::cout << "-----------" << std::endl;
+		std::cout << "EMPTY" << std::endl;
+		return;
+	}
+
+	for (int i = stack.topIndex; i >= 0; --i)
+	{
+		std::cout << stack.container[i] << std::endl;
+	}
+	std::cout << "----------" << std::endl;
+}
+
+void Push(Stack& stack, int value)
+{
+	if (stack.topIndex >= STACK_SIZE - 1)
+	{
+		std::cout << "Stack is FULL!" << std::endl;
+		return;
+	}
+
+	stack.container[++stack.topIndex] = value;
+}
+
+void Pop(Stack& stack)
+{
+	if (stack.topIndex < 0)
+	{
+		return;
+	}
+
+	std::cout << stack.container[stack.topIndex--] << " pop! " << std::endl;
+}
+
+void ProcessUserInput(Stack& stack)
+{
+	int command = -1;
+	while (true)
+	{
+		PrintStack(stack);
+
+		std::cout << std::endl;
+		std::cout << "> ";
+		std::cin >> command;
+
+		switch (command)
 		{
-			if (f(numbers[i], numbers[j]))
-			{
-				temp = numbers[i];
-				numbers[i] = numbers[j];
-				numbers[j] = temp;
-			}
+		case PUSH:
+		{
+			int value;
+			std::cout << "  push value >> ";
+			std::cin >> value;
+			Push(stack, value);
+			break;
+		}
+
+		case POP:
+			Pop(stack);
+			break;
+
+		default:
+			std::cout << "잘못된 명령어 입니다." << std::endl;
+			break;
 		}
 	}
 }
 
 int main()
 {
-	const int NumArray = 10;
-	int scores[NumArray]{ 20,10,40,15,30,70,60,90,80,40 };
+	Stack myStack;
 
-	auto startTime = std::chrono::system_clock::now();
-	Sort(scores, NumArray, Descending);
-
-	auto endTime = std::chrono::system_clock::now();
-
-	auto duration = endTime - startTime;
-
-	std::cout << "Sort() runs : " << duration.count() << "ms" << std::endl;
+	PrintInfo();
+	ProcessUserInput(myStack);
 }
