@@ -2,72 +2,76 @@
 
 using namespace std;
 
-const int STACK_SIZE = 10;
+const int QUEUE_SIZE = 10;
 
 enum Command
 {
-	PUSH = 1,
-	POP = 2
+	ENQUEUE = 1,
+	DEQUEUE = 2
 };
 
-struct Stack
+struct Queue
 {
-	int container[STACK_SIZE]{};
-	int topIndex = -1;
+	int container[QUEUE_SIZE]{};
+	int head = 0;
+	int tail = 0;
 };
 
 void PrintInfo()
 {
-	std::cout << " <STACK> " << std::endl;
-	std::cout << "[1] push" << std::endl;
-	std::cout << "[2] pop" << std::endl;
-	std::cout << "---------" << std::endl;
+	std::cout << "  <QUEUE>  " << std::endl;
+	std::cout << "[1] enqueue" << std::endl;
+	std::cout << "[2] dequeue" << std::endl;
+	std::cout << "-----------" << std::endl;
 }
 
-void PrintStack(Stack& stack)
+void PrintQueue(Queue& queue)
 {
-	std::cout << "---stack---" << std::endl;
-	if (stack.topIndex < 0)
+	std::cout << "--- queue ---" << std::endl;
+	if (queue.head == queue.tail)
 	{
 		std::cout << "-----------" << std::endl;
 		std::cout << "EMPTY" << std::endl;
 		return;
 	}
 
-	for (int i = stack.topIndex; i >= 0; --i)
+	int i = queue.head;
+	while (i != queue.tail)
 	{
-		std::cout << stack.container[i] << std::endl;
+		i = (i + 1) % QUEUE_SIZE;
+		std::cout << queue.container[i] << std::endl;
 	}
+
 	std::cout << "----------" << std::endl;
 }
 
-void Push(Stack& stack, int value)
+void Enqueue(Queue& queue, int value)
 {
-	if (stack.topIndex >= STACK_SIZE - 1)
+	if ((queue.tail + 1) % QUEUE_SIZE == queue.head)
 	{
-		std::cout << "Stack is FULL!" << std::endl;
+		std::cout << "Queue is FULL!" << std::endl;
 		return;
 	}
-
-	stack.container[++stack.topIndex] = value;
+	queue.tail = (queue.tail + 1) % QUEUE_SIZE;
+	queue.container[queue.tail] = value;
 }
 
-void Pop(Stack& stack)
+void Dequeue(Queue& queue)
 {
-	if (stack.topIndex < 0)
+	if (queue.tail == queue.head)
 	{
 		return;
 	}
-
-	std::cout << stack.container[stack.topIndex--] << " pop! " << std::endl;
+	queue.head = (queue.head + 1) % QUEUE_SIZE;
+	std::cout << queue.container[queue.head] << "dequeue!" << std::endl;
 }
 
-void ProcessUserInput(Stack& stack)
+void ProcessUserInput(Queue& queue)
 {
 	int command = -1;
 	while (true)
 	{
-		PrintStack(stack);
+		PrintQueue(queue);
 
 		std::cout << std::endl;
 		std::cout << "> ";
@@ -75,17 +79,17 @@ void ProcessUserInput(Stack& stack)
 
 		switch (command)
 		{
-		case PUSH:
+		case ENQUEUE:
 		{
 			int value;
-			std::cout << "  push value >> ";
+			std::cout << "  enqueue value >> ";
 			std::cin >> value;
-			Push(stack, value);
+			Enqueue(queue, value);
 			break;
 		}
 
-		case POP:
-			Pop(stack);
+		case DEQUEUE:
+			Dequeue(queue);
 			break;
 
 		default:
@@ -97,8 +101,8 @@ void ProcessUserInput(Stack& stack)
 
 int main()
 {
-	Stack myStack;
+	Queue myQueue;
 
 	PrintInfo();
-	ProcessUserInput(myStack);
+	ProcessUserInput(myQueue);
 }
