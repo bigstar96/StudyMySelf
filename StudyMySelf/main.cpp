@@ -1,29 +1,26 @@
 ﻿#include <iostream>
 
-class Animal
+class Inventory
 {
-public:
-	int age;
-	int weight;
+private:
+	std::string items[10];
 
 public:
-	void 걷기(){};
+	std::string GetItem(int index)
+	{
+		if (index < 0 || index >= 10)
+		{
+			return "Invalid";
+		}
 
-};
-
-class Dog : Animal
-{
-public:
-	char breed[];
-
-public:
-	void worf(){};
-	void 구르기(){};
-
+		return items[index];
+	}
 };
 
 
 int main()
 {
+	Inventory inv;
 
+	std::cout << inv.GetItem(9);
 }
