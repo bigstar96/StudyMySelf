@@ -2,14 +2,21 @@
 
 class Point2D
 {
-public:
+private:
 	int mX;
 	int mY;
 
+public:
+	void Set(int x, int y);
 	double Length();
-
 	void Print();
 };
+
+void Point2D::Set(int x, int y)
+{
+	mX = x;
+	mY = y;
+}
 
 double Point2D::Length()
 {
@@ -23,8 +30,9 @@ void Point2D::Print()
 
 int main()
 {
-	Point2D pt{ 3,3 };
+	Point2D pt;
 
+	pt.Set(3, 3);
 	pt.Print();
 
 	std::cout << pt.Length();
