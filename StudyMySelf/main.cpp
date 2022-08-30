@@ -1,59 +1,37 @@
 ﻿#include <iostream>
 
-//class Point2D
-//{
-//private:
-//	int mX;
-//	int mY;
-//
-//public:
-//	void Set(int x, int y);
-//	double Length();
-//	void Print();
-//};
-//
-//void Point2D::Set(int x, int y)
-//{
-//	mX = x;
-//	mY = y;
-//}
-//
-//double Point2D::Length()
-//{
-//	return sqrt(mX * mX + mY * mY);
-//}
-//
-//void Point2D::Print()
-//{
-//	std::cout << "(" << mX << ", " << mY << ")" << std::endl;
-//}
-
-class MyClass
+class Quest
 {
-public:
-	MyClass()
-	{
-		std::cout << "[Constructor]" << std::endl;
-	}
-	~MyClass()
-	{
-		std::cout << "[Destructor]" << std::endl;
-	}
 
 private:
+	int mID{ 1 };
+	int mExp{ 1 };
 
+public:
+	Quest() : mID{ 1 }, mExp{ 1 }
+	{
+		// 1 : 기본 퀘스트 초기화
+	}
+	Quest(std::string excel) : mID{ 2 }, mExp{ 2 }
+	{
+		// 1 : 기본 퀘스트 초기화
+		Quest();
+		
+		// 2 : 엑셀에서 퀘스트 정보 가져온 후
+	}
+	
+
+	void Print()
+	{
+		std::cout << "QuestID : " << mID << std::endl;
+		std::cout << "EXP : " << mExp << std::endl;
+	}
 };
+
 
 int main()
 {
-	/*Point2D pt;
+	Quest q1 = Quest("1.xlsx");
 
-	pt.Set(3, 3);
-	pt.Print();
-
-	std::cout << pt.Length();*/
-
-	MyClass c1;
-
-	std::cout << "MyClass Instantiate!" << std::endl;
+	q1.Print();
 }

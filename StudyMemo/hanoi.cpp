@@ -1,14 +1,7 @@
 #include <iostream>
+#include "hanoi.h"
 
-// Recursive Function
 
-bool Succes{ true };
-
-const int succes[3][3]{
-		{ 0, 0, 1 },
-		{ 0, 0, 2 },
-		{ 0, 0, 3 }
-};
 
 void PrintInfo(int hanoi[3][3])
 {
@@ -101,15 +94,15 @@ void Hanoi(int hanoi[3][3])
 	}
 }
 
-int main()
-{
-	int hanoi[3][3]{
-		{ 1, 0, 0 },
-		{ 2, 0, 0 },
-		{ 3, 0, 0 }
-	};
-
-	Hanoi(hanoi);
-
-	return 0;
-}
+//int main()
+//{
+//	int hanoi[3][3]{
+//		{ 1, 0, 0 },
+//		{ 2, 0, 0 },
+//		{ 3, 0, 0 }
+//	};
+//
+//	Hanoi(hanoi);
+//
+//	return 0;
+//}
