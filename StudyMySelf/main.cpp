@@ -1,26 +1,31 @@
 ﻿#include <iostream>
 
-class Inventory
+class Point2D
 {
-private:
-	std::string items[10];
-
 public:
-	std::string GetItem(int index)
-	{
-		if (index < 0 || index >= 10)
-		{
-			return "Invalid";
-		}
+	int mX;
+	int mY;
 
-		return items[index];
-	}
+	double Length();
+
+	void Print();
 };
 
+double Point2D::Length()
+{
+	return sqrt(mX * mX + mY * mY);
+}
+
+void Point2D::Print()
+{
+	std::cout << "(" << mX << ", " << mY << ")" << std::endl;
+}
 
 int main()
 {
-	Inventory inv;
+	Point2D pt{ 3,3 };
 
-	std::cout << inv.GetItem(9);
+	pt.Print();
+
+	std::cout << pt.Length();
 }
