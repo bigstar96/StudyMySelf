@@ -130,12 +130,16 @@
     <ClCompile Include="DataClass.cpp" />
     <ClCompile Include="hanoi.cpp" />
     <ClCompile Include="memomain.cpp" />
+    <ClCompile Include="Queue.cpp" />
+    <ClCompile Include="Stack.cpp" />
     <ClCompile Include="String.cpp" />
     <ClCompile Include="Student.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataClass.h" />
     <ClInclude Include="hanoi.h" />
+    <ClInclude Include="Queue.h" />
+    <ClInclude Include="Stack.h" />
     <ClInclude Include="String.h" />
     <ClInclude Include="Student.h" />
   </ItemGroup>
