@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cat.cpp" />
     <ClCompile Include="DataClass.cpp" />
     <ClCompile Include="hanoi.cpp" />
     <ClCompile Include="memomain.cpp" />
@@ -136,6 +137,7 @@
     <ClCompile Include="Student.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cat.h" />
     <ClInclude Include="DataClass.h" />
     <ClInclude Include="hanoi.h" />
     <ClInclude Include="Queue.h" />

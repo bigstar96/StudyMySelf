@@ -1,8 +1,14 @@
 #include <iostream>
-#include "String.h"
+#include "Cat.h"
 
 int main()
 {
-	String s1{ "Hello, World!" };
-	s1.Print();
+	Cat nacho;
+	nacho.Meow();
+
+	// dynamic allocation
+
+	Cat* pCancho = new Cat;
+	pCancho->Meow();
+	delete pCancho;
 }
