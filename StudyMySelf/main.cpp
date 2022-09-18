@@ -1,32 +1,47 @@
 ﻿#include <iostream>
 
-class MyClass
+class Sword;
+
+class Warrior
 {
 public:
-	static int sCount;
-
-	MyClass()
-	{
-		sCount++;
-	}
-
-	~MyClass()
-	{
-		sCount--;
-	}
-
-private:
-
+	void AttackWith(Sword& sword);
 };
 
-int MyClass::sCount{ 0 };
+class Sword
+{
+	friend class Warrior;
+private:
+	int mAttackDamage;
+public:
+	Sword(int dagame) : mAttackDamage{ dagame } {}
+
+	friend void DamageBuff(Sword& sowrd);
+
+	friend void Warrior::AttackWith(Sword& sword);
+};
+
+void Warrior::AttackWith(Sword& sword)
+{
+	std::cout << "칼을 휘둘러 " << sword.mAttackDamage << "만큼 피해를 주었다!" << std::endl;
+}
+
+
+void DamageBuff(Sword& sword)
+{
+	int oldDamage = sword.mAttackDamage;
+
+	sword.mAttackDamage = oldDamage * 2;
+
+	std::cout << "검을 강화했다." << oldDamage << "->" << sword.mAttackDamage << std::endl;
+}
 
 int main()
 {
-	MyClass c1;
-	MyClass c2;
-	MyClass c3;
+	Sword shortSword{ 10 };
+	Warrior w;
 
-	std::cout << c3.sCount << std::endl;
-	std::cout << MyClass::sCount << std::endl;
+	w.AttackWith(shortSword);
+
+	DamageBuff(shortSword);
 }
