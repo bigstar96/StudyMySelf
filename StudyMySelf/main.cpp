@@ -31,15 +31,19 @@ public:
 	{
 		std::cout << "(" << mX << ", " << mY << ")" << std::endl;
 	}
+
+	friend std::ostream& operator << (std::ostream& os, const Point2D& pt)
+	{
+		os << "(" << pt.mX << ", " << pt.mY << ")" << std::endl;
+		return os;
+	}
 };
+
+
 
 int main()
 {
 	Point2D pt1{ 2,3 };
 
-	pt1();
-	pt1.Print();
-
-	pt1(3, 3);
-	pt1.Print();
+	std::cout << pt1;
 }
