@@ -1,31 +1,45 @@
 ﻿#include <iostream>
+#include <cmath>
 
-class MyArray
+class Point2D
 {
 private:
-	int mArray[10];
+	int mX;
+	int mY;
 
 public:
-	MyArray() : mArray{}
-	{
+	Point2D(int x, int y) : mX{ x }, mY{ y }{}
 
+	operator const float()
+	{
+		return sqrt(mX * mX + mY * mY);
 	}
 
-	int& operator[] (int index)
+	void operator() ()
 	{
-		return mArray[index];
+		mX = 0;
+		mY = 0;
 	}
 
+	void operator() (int x, int y)
+	{
+		mX = x;
+		mY = y;
+	}
+
+	void Print()
+	{
+		std::cout << "(" << mX << ", " << mY << ")" << std::endl;
+	}
 };
-
-
 
 int main()
 {
-	MyArray array1;
+	Point2D pt1{ 2,3 };
 
-	array1[0] = 1;
+	pt1();
+	pt1.Print();
 
-	std::cout << array1[0] << std::endl;
-	std::cout << array1[1] << std::endl;
+	pt1(3, 3);
+	pt1.Print();
 }
