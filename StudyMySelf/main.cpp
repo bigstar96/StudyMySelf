@@ -37,13 +37,19 @@ public:
 		os << "(" << pt.mX << ", " << pt.mY << ")" << std::endl;
 		return os;
 	}
+
+	Point2D& operator=(const Point2D& instance)
+	{
+		mX = instance.mX;
+		mY = instance.mY;
+		return *this;
+	}
 };
-
-
 
 int main()
 {
 	Point2D pt1{ 2,3 };
 
 	std::cout << pt1;
+
 }
