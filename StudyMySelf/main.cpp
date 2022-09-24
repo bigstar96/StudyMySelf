@@ -1,55 +1,63 @@
 ﻿#include <iostream>
-#include <cmath>
 
-class Point2D
+class String
 {
 private:
-	int mX;
-	int mY;
+	int mLength;
+	char* mString;
 
 public:
-	Point2D(int x, int y) : mX{ x }, mY{ y }{}
-
-	operator const float()
+	String(char* string, int length) : mLength{ length }
 	{
-		return sqrt(mX * mX + mY * mY);
+		this->mString = new char[mLength];
+
+		strcpy(this->mString, string);
 	}
 
-	void operator() ()
+	~String()
 	{
-		mX = 0;
-		mY = 0;
+		delete[]mString;
 	}
 
-	void operator() (int x, int y)
+	void GetLength(int num)
 	{
-		mX = x;
-		mY = y;
+		mLength = num;
 	}
 
-	void Print()
+	void GetString(char* str)
 	{
-		std::cout << "(" << mX << ", " << mY << ")" << std::endl;
+		strcpy(this->mString, str);
 	}
 
-	friend std::ostream& operator << (std::ostream& os, const Point2D& pt)
+	String& operator[]()
 	{
-		os << "(" << pt.mX << ", " << pt.mY << ")" << std::endl;
-		return os;
+
 	}
 
-	Point2D& operator=(const Point2D& instance)
+	String& operator+()
 	{
-		mX = instance.mX;
-		mY = instance.mY;
+
+	}
+
+	String& operator+=(const String& str)
+	{
+		mLength++;
+		mString++;
 		return *this;
 	}
+
+	String& operator=(const String& str)
+	{
+		strcpy(str.mString, mString);
+
+		return *this;
+	}
+
 };
+
+
 
 int main()
 {
-	Point2D pt1{ 2,3 };
-
-	std::cout << pt1;
-
+	
 }
