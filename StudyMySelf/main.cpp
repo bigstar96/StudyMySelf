@@ -7,9 +7,16 @@ private:
 	char* mString;
 
 public:
+	String() : mLength{}, mString{} {}
+
+	String(int num) : mLength{ num }, mString{}
+	{
+		this->mString = new char[mLength + 1];
+	}
+
 	String(char* string, int length) : mLength{ length }
 	{
-		this->mString = new char[mLength];
+		this->mString = new char[mLength + 1];
 
 		strcpy(this->mString, string);
 	}
@@ -34,9 +41,31 @@ public:
 
 	}
 
-	String& operator+()
+	String& operator+(const String& rhs)
 	{
+		int length = mLength;
+		char* result = new char[length + 1];
+		strcpy(result, mString);
 
+		mLength = mLength + rhs.mLength;
+		this->mString = new char[mLength + 1];
+
+		for (int i = 0; i < mLength; i++)
+		{
+			if (i < length)
+			{
+				mString[i] = result[i];
+			}
+
+			if (i > length)
+			{
+				mString[i] = rhs.mString[i - length];
+			}
+		}
+
+		delete[]result;
+
+		return *this;
 	}
 
 	String& operator+=(const String& str)
