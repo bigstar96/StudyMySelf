@@ -1,6 +1,8 @@
 ﻿#include <iostream>
 #include <cstring>
 
+#define _CRT_SECURE_NO_WARNINGS
+
 class String
 {
 private:
@@ -18,14 +20,15 @@ public:
 	{
 		this->mLength = strlen(str);
 		this->mString = new char[this->mLength + 1];
-		strcpy(this->mString, str);
+		// strcpy(this->mString, str);
+		strcpy_s(this->mString, this->mLength, str);
 	}
 
 	String(const String& copy)
 	{
 		this->mLength = copy.mLength;
 		this->mString = new char[mLength];
-		strcpy(this->mString, copy.mString);
+		strcpy_s(this->mString, this->mLength, copy.mString);
 	}
 
 	~String()
@@ -41,7 +44,8 @@ public:
 
 	void GetString(char* str)
 	{
-		strcpy(this->mString, str);
+		int n = strlen(str);
+		strcpy_s(this->mString, n, str);
 	}
 
 	void CopyString(char* str)
@@ -50,7 +54,7 @@ public:
 
 		int n = strlen(str);
 		mString = new char[n + 1];
-		strcpy(mString, str);
+		strcpy_s(mString, n, str);
 	}
 
 	void ConcatenateString(char* str)
@@ -58,8 +62,8 @@ public:
 		int n = strlen(mString) + strlen(str);
 		char* p1 = new char[n + 1];
 
-		strcpy(p1, mString);
-		strcat(p1, str);
+		strcpy_s(p1, n, mString);
+		strcat_s(p1, n, str);
 
 		delete[]mString;
 		mString = p1;
@@ -74,7 +78,7 @@ public:
 	{
 		int length = strlen(str.mString);
 		char* result = new char[length + 1];
-		strcpy(result, mString);
+		strcpy_s(result, this->mLength, this->mString);
 
 		mLength = mLength + str.mLength;
 		this->mString = new char[mLength + 1];
@@ -102,8 +106,8 @@ public:
 		this->mLength += (str.mLength - 1);
 		char* c = new char[this->mLength];
 
-		strcpy(c, this->mString);
-		strcat(c, str.mString);
+		strcpy_s(c, strlen(mString), this->mString);
+		strcat_s(c, strlen(str.mString), str.mString);
 
 		if (this->mString != NULL)
 		{
