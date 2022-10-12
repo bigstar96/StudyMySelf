@@ -1,14 +1,10 @@
 #include <iostream>
-#include "Cat.h"
+#include "Dog.h"
 
 int main()
 {
-	Cat nacho;
-	nacho.Meow();
+	Dog john;
 
-	// dynamic allocation
-
-	Cat* pCancho = new Cat;
-	pCancho->Meow();
-	delete pCancho;
+	john.Sound();
+	john.Roll();
 }

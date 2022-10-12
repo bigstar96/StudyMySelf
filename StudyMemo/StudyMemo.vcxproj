@@ -127,8 +127,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animal.cpp" />
     <ClCompile Include="Cat.cpp" />
     <ClCompile Include="DataClass.cpp" />
+    <ClCompile Include="Dog.cpp" />
     <ClCompile Include="hanoi.cpp" />
     <ClCompile Include="memomain.cpp" />
     <ClCompile Include="Queue.cpp" />
@@ -137,8 +139,10 @@
     <ClCompile Include="Student.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animal.h" />
     <ClInclude Include="Cat.h" />
     <ClInclude Include="DataClass.h" />
+    <ClInclude Include="Dog.h" />
     <ClInclude Include="hanoi.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Stack.h" />
